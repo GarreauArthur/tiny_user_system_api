@@ -29,7 +29,7 @@ You don't need to think about it, just `random command` and your good to go.
   * [ ] SQL scripts
     * [x] create database
     * [x] drop db
-  * [ ] start up script (minimal)
+  * [x] start up script (minimal)
   * [ ] first release
 * [ ] Real startup script
  * [ ] ask for database type
