@@ -44,6 +44,7 @@ You don't need to think about it, just `random command` and your good to go.
   * [ ] Oracle DB
   * [ ] SQL server
   * [ ] MongoDB
+* [ ] change name to `tiny_users` because it's funnier
 
 ## Initial Development
 
@@ -58,4 +59,32 @@ You don't need to think about it, just `random command` and your good to go.
 
 TODO
 
+## Notes
+
+### Methodologies
+
+I am trying a new work methodologies to prevent myself from overthinking and be
+able to work faster.
+
+I am also trying a new "version number" system, I called [Sovenut](https://github.com/GarreauArthur/sovenut).
+It's experimental, it may be a good or terrible idea. It keeps tracks of the
+dev process. It's made out of 4 numbers:
+
+* **M**ajor: when introducing breaking changes
+* **f**eature: when introducing a new feature
+* **m**inor: when changing something without adding a feature
+* **p**atch: when fixing a problem
+
+Two main branches:
+
+* develop
+* master
+
+Commit in master are forbidden, you can only merge into master. All the work is
+done in develop, or in branches (ex: `f_newfeature`). The version number is
+updated everytime a commit or a merge is made into develop.
+
+### Participate
+
+Yes do it
 
