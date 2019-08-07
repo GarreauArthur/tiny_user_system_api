@@ -24,9 +24,12 @@ You don't need to think about it, just `random command` and your good to go.
 * MVP
   * [ ] think enough but not too much
   * [ ] node API, express, secure-password
+  * [ ] be careful of datatype of password
   * [ ] postgreSQL
   * [ ] SQL scripts
-  * [ ] strat up script (minimal)
+    * [x] create database
+    * [x] drop db
+  * [ ] start up script (minimal)
   * [ ] first release
 * [ ] Real startup script
  * [ ] ask for database type
@@ -57,9 +60,25 @@ You don't need to think about it, just `random command` and your good to go.
 
 ## DOC HERE
 
+### getting started
+
 TODO
 
+### The data
+
+```
+Table users {
+  id int [pk, increment]
+  email varchar(320)
+  password char(128)
+}
+```
+
 ## Notes
+
+### Rules, convention
+
+No upper case => No case sensitivity problems
 
 ### Methodologies
 
