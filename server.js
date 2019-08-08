@@ -30,8 +30,8 @@ app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-
  * 
  * @apiParam {String} email The user email address
  * @apiParam {String} password The user password
- * @return {
- * }
+ * @apiSuccess {String} status Status of the operation
+ * @apiSuccess {String} content A jwt
  */
 app.post('/create',
 
@@ -90,7 +90,8 @@ app.post('/create',
  * @api {post} /connect
  * @apiName connect
  * 
- * @apiParam {String} email The user email address
+ * @apiParam {String} email The user's email address
+ * @apiParam {String} password The user's password
  */
 app.post('/connect',
 
@@ -126,14 +127,12 @@ app.post('/connect',
           // if problem with the query
           if (err)
           {
-            console.log(err.stack);
             return res.status(500).json({ status:'db_error', content: err.message });
           }
           // if no user was found
           if ( result.rowCount == 0 )
           {
-            return res.status(422).json({ status:'input_error', content: 'Invalid email' });
-          }
+            return res.status(422).json({ status:'input_error', content: 'Invalid email' }); }
 
           async function verify_password () {
 
@@ -157,7 +156,6 @@ app.post('/connect',
             }
             else // if password is incorrect
             {
-              console.log(password_verification);
               return res.status(422).json({ status:'input_error', content: 'Wrong password' });
             }
           } // end of verify_password
@@ -169,9 +167,28 @@ app.post('/connect',
   } // end of /connect callback
 ); // end of /connect
 
+/**
+ * @api
+ * @apiname
+ * @api {post} /verify
+ * @apiName verify
+ * 
+ * @apiParam {String} token The jwt token
+ * @apiSuccess {Object} The decoded payload
+ */
 app.post('/verify', (req, res) => {
-  console.log("verify that the token is")
-  res.send("verify");
+  if ( !req.body.token )
+  {
+    return res.status(422).json({ status:'input_error', content: 'missing token' });
+  }
+  
+  jwt.verify(req.body.token, JWT_SECRET, (err, decoded) => {
+    if (err)
+    {
+      return res.status(422).json({ status:'input_error', content: 'invalid token' });
+    }
+    return res.status(200).json({ status: 'success', content: decoded});
+  });
 });
 
 app.listen(port, () => console.log(`Up and running on port ${port}`));

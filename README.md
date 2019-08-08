@@ -22,31 +22,36 @@ You don't need to think about it, just `random command` and your good to go.
 ### TODO
 
 * MVP
-  * [ ] think enough but not too much
+  * [/] think enough but not too much
   * [ ] node API, express, secure-password
-    * [ ] /create
-    * [ ] /connect
-    * [ ] /verify
-  * [ ] be careful of datatype of password
-  * [ ] postgreSQL
-  * [ ] SQL scripts
+    * [x] /create
+    * [x] /connect
+    * [x] /verify
+  * [x] be careful of datatype of password
+  * [x] postgreSQL
+  * [x] SQL scripts
     * [x] create database
     * [x] drop db
   * [x] start up script (minimal)
+  * [ ] delete shell script (minimal)
   * [ ] first release
   * [ ] write api doc with [apidoc.js](http://apidocjs.com/)
-* [ ] Real startup script
- * [ ] ask for database type
- * [ ] ask for database's superuser
- * [ ] ask for existing database
- * [ ] ask for name for new database
+* version 1
+  * [ ] refactor
+    * [ ] config file or something
+    * [ ] create a doa or model or some sort of layer of abstraction for the database
+  * [ ] Real startup script
+    * [ ] ask for database type
+    * [ ] ask for database's superuser
+    * [ ] ask for existing database
+    * [ ] ask for name for new database
 * ADVANCED (? should we ?)
   * [ ] reset password
     * [ ] almighty reset (as a dev for protyping, if we forgot a password)
     * [ ] user reset (like a normal user)
   * [ ] add optional fields ([nick|sur]name, date of birth...)
 * Database Management Systems
-  * [ ] postgreSQL
+  * [/] postgreSQL
   * [ ] MySQL/MariaDB
   * [ ] Oracle DB
   * [ ] SQL server

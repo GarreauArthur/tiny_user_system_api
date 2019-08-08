@@ -1,7 +1,9 @@
-0.3.0.0
+0.4.0.0
 [0.1.0.0]
 Add sql script to create and drop the database and the users table
 [0.2.0.0]
 API /create can now create a user and return jwt
 [0.3.0.0]
 API /connect, you can now get a jwt by connecting an existing user
+[0.4.0.0]
+Endpoint /verify to check if a given jwt is valid and return the decoded payload
