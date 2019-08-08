@@ -7,7 +7,7 @@ CREATE DATABASE tiny_users_db;
 CREATE TABLE "users" (
   "id" SERIAL PRIMARY KEY,
   "email" varchar(320),
-  "password" varchar(128)
+  "password" bytea
 );
 
 -- create user
