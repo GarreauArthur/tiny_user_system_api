@@ -24,6 +24,9 @@ You don't need to think about it, just `random command` and your good to go.
 * MVP
   * [ ] think enough but not too much
   * [ ] node API, express, secure-password
+    * [ ] /create
+    * [ ] /connect
+    * [ ] /verify
   * [ ] be careful of datatype of password
   * [ ] postgreSQL
   * [ ] SQL scripts
@@ -31,6 +34,7 @@ You don't need to think about it, just `random command` and your good to go.
     * [x] drop db
   * [x] start up script (minimal)
   * [ ] first release
+  * [ ] write api doc with [apidoc.js](http://apidocjs.com/)
 * [ ] Real startup script
  * [ ] ask for database type
  * [ ] ask for database's superuser
