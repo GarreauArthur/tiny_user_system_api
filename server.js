@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const { check, validationResult } = require('express-validator');
 const { Pool } = require('pg')
 const securePassword = require('secure-password');
+const jwt = require('jsonwebtoken');
+const JWT_SECRET = 'Vuxu"T+C=d5pIXa+s%dY+R=9!}mZ1R0/ZwS4Js[*F2:PB=eAX5&"v9,UwK5$5?~';
 
 // init the password policy
 const pwd = securePassword();
@@ -71,9 +73,9 @@ app.post('/create',
 
           // get the id created
           let user_id = result.rows[0].id;
+          let token = jwt.sign({id: user_id, email: email}, JWT_SECRET, {algorithm: 'HS256'});
 
-
-          return res.status(200).json({id: user_id, hash: hash_password});
+          return res.status(200).json({status: "success", content: token});
         }
       );
     }
