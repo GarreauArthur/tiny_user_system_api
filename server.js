@@ -68,7 +68,7 @@ app.post('/create',
           if (err)
           {
             console.log(err.stack);
-            return res.status(500).json({ status:'insert_error', content: err.message });
+            return res.status(500).json({ status:'db_error', content: err.message });
           }
 
           // get the id created
@@ -84,10 +84,90 @@ app.post('/create',
 
 );
 
-app.post('/connect', (req, res) => {
-  console.log("connect an existing user");
-  res.send("connect");
-});
+/**
+ * @api
+ * @apiname
+ * @api {post} /connect
+ * @apiName connect
+ * 
+ * @apiParam {String} email The user email address
+ */
+app.post('/connect',
+
+  // check that the params were sent
+  [
+    check('email').isEmail(),
+    check('password').isLength({min: 6})
+  ],
+
+  (req, res) => {
+
+    // check for params errors
+    const input_errors = validationResult(req);
+    if ( !input_errors.isEmpty() )
+    {
+      return res.status(422).json({
+        status: 'input_error',
+        content: input_errors.array()
+      });
+    }
+
+    // retrieve params
+    const { email, password } = req.body;
+
+    // put the password in a buffer
+    const buffer_password = Buffer.from(password);
+    async function connect_user () {
+      // find user
+      pool.query(
+        'SELECT * FROM users WHERE email = $1',
+        [email],
+        (err, result) => {
+          // if problem with the query
+          if (err)
+          {
+            console.log(err.stack);
+            return res.status(500).json({ status:'db_error', content: err.message });
+          }
+          // if no user was found
+          if ( result.rowCount == 0 )
+          {
+            return res.status(422).json({ status:'input_error', content: 'Invalid email' });
+          }
+
+          async function verify_password () {
+
+            // verify password
+            const stored_hash = result.rows[0].password;
+            const password_verification = await pwd.verify(buffer_password, stored_hash);
+
+            // if password is correct
+            if ( 
+              password_verification == securePassword.VALID 
+              ||
+              password_verification == securePassword.VALID_NEEDS_REHASH
+            )
+            {
+              // get the id of the user
+              let user_id = result.rows[0].id;
+              // create a jwt
+              let token = jwt.sign({id: user_id, email: email}, JWT_SECRET, {algorithm: 'HS256'});
+              // send it
+              return res.status(200).json({status: "success", content: token});
+            }
+            else // if password is incorrect
+            {
+              console.log(password_verification);
+              return res.status(422).json({ status:'input_error', content: 'Wrong password' });
+            }
+          } // end of verify_password
+          return verify_password();
+        } // end of query callback
+      ); // end of pool.query
+    } // end of connect_user
+    return connect_user();
+  } // end of /connect callback
+); // end of /connect
 
 app.post('/verify', (req, res) => {
   console.log("verify that the token is")
