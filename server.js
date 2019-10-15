@@ -12,7 +12,7 @@ const pwd = securePassword();
 // postgres connection pool
 const pool = new Pool({
   user: 'tiny_user',
-  host: 'localhost',
+  host: process.env.DATABASE_HOST,
   database: 'tiny_users_db',
   password: 'tiny_user_password',
   port: 5432,
@@ -132,7 +132,8 @@ app.post('/connect',
           // if no user was found
           if ( result.rowCount == 0 )
           {
-            return res.status(422).json({ status:'input_error', content: 'Invalid email' }); }
+            return res.status(422).json({ status:'input_error', content: 'Invalid email' });
+          }
 
           async function verify_password () {
 
