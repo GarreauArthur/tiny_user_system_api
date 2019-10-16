@@ -4,17 +4,17 @@ const { check, validationResult } = require('express-validator');
 const { Pool } = require('pg')
 const securePassword = require('secure-password');
 const jwt = require('jsonwebtoken');
-const JWT_SECRET = 'Vuxu"T+C=d5pIXa+s%dY+R=9!}mZ1R0/ZwS4Js[*F2:PB=eAX5&"v9,UwK5$5?~';
+const JWT_SECRET = process.env.JWT_SECRET;
 
 // init the password policy
 const pwd = securePassword();
 
 // postgres connection pool
 const pool = new Pool({
-  user: 'tiny_user',
+  user: process.env.TINY_USER_DB,
   host: process.env.DATABASE_HOST,
-  database: 'tiny_users_db',
-  password: 'tiny_user_password',
+  database: process.env.TINY_USER_DB,
+  password: process.env.TINY_USER_PASSWORD,
   port: 5432,
 });
 

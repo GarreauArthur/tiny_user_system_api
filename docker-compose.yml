@@ -6,8 +6,12 @@ services:
     restart: always
     environment:
       POSTGRES_PASSWORD: "ki11_m3_pl3453hahaaha"
+      POSTGRES_DB: "tiny_users_db"
+      TINY_USER_DB: "tiny_users_db"
+      TINY_USER_NAME: "tiny_user"
+      TINY_USER_PASSWORD: "tiny_user_password"
     volumes:
-      - ./postgres/create_db.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./postgres/init-user-db.sh:/docker-entrypoint-initdb.d/init.sh
   tiny_user_system:
     image: tiny_user_system_image
     build:
@@ -17,5 +21,9 @@ services:
     depends_on:
       - database
     environment:
-      - DATABASE_HOST=database
+      DATABASE_HOST: database
+      JWT_SECRET: 'VuxuT+C=d5pIXa+s%%dY+R=9!}mZ1R0/ZwS4Js[*:PB=eAX5&v9,UwK5$$5?~'
+      TINY_USER_DB: "tiny_users_db"
+      TINY_USER_NAME: "tiny_user"
+      TINY_USER_PASSWORD: "tiny_user_password"
 
