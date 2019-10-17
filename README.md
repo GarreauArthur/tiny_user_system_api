@@ -5,6 +5,14 @@ your app.
 
 Prototype fast, think later
 
+## getting started
+
+Clone this repo, change the environment variables in docker-compose.yml. Type:
+
+    docker-compose up -d
+
+and you are done !
+
 ## GOAL
 
 Build a tiny, easy to use, "plugable" user system (login, registration), to be
