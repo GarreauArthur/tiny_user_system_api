@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  database:
+    image: postgres:12.0-alpine
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: "ki11_m3_pl3453hahaaha"
+      POSTGRES_DB: "tiny_users_db"
+      TINY_USER_DB: "tiny_users_db"
+      TINY_USER_NAME: "tiny_user"
+      TINY_USER_PASSWORD: "tiny_user_password"
+    volumes:
+      - ./postgres/init-user-db.sh:/docker-entrypoint-initdb.d/init.sh
+  tiny_user_system:
+    image: tiny_user_system_image
+    build:
+      context: .
+    ports:
+      - "3003:3003"
+    depends_on:
+      - database
+    environment:
+      DATABASE_HOST: database
+      JWT_SECRET: 'VuxuT+C=d5pIXa+s%%dY+R=9!}mZ1R0/ZwS4Js[*:PB=eAX5&v9,UwK5$$5?~'
+      TINY_USER_DB: "tiny_users_db"
+      TINY_USER_NAME: "tiny_user"
+      TINY_USER_PASSWORD: "tiny_user_password"
+
