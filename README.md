@@ -5,6 +5,14 @@ your app.
 
 Prototype fast, think later
 
+## getting started
+
+Clone this repo, change the environment variables in docker-compose.yml. Type:
+
+    docker-compose up -d
+
+and you are done !
+
 ## GOAL
 
 Build a tiny, easy to use, "plugable" user system (login, registration), to be
@@ -36,6 +44,11 @@ You don't need to think about it, just `random command` and your good to go.
   * [ ] delete shell script (minimal)
   * [ ] first release
   * [ ] write api doc with [apidoc.js](http://apidocjs.com/)
+* Docker (it wasn't planned originally but it may be a good idea)
+  * [x] dockerfile
+  * [x] docker-compose
+  * [x] password and stuff in env variable so we can change them easily
+  * [ ] mount a volume to keep the data ?
 * version 1
   * [ ] refactor
     * [ ] config file or something
@@ -66,6 +79,18 @@ You don't need to think about it, just `random command` and your good to go.
 | node.js    | 10.7.0         |
 | PostgreSQL | 11.4           |
 
+## Docker (2019/10/17) - it works on my machine, then we will deploy my machine
+
+Docker makes deployment easy, so that's what I am going to use now.
+
+A dockerfile creates a node:10-jessie container running the server.
+A docker-compose helps building the app and a postgres v12 database. Password,
+username, database name, jwt secret are settable from the docker-compose file.
+It makes it easy to change these values.
+
+The database container run the script postres/init-user-db.sh, to create a user,
+and the table. This script uses psql variables to be able to use the environment
+variables.
 
 ## DOC HERE
 
