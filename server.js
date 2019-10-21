@@ -11,7 +11,7 @@ const pwd = securePassword();
 
 // postgres connection pool
 const pool = new Pool({
-  user: process.env.TINY_USER_DB,
+  user: process.env.TINY_USER_NAME,
   host: process.env.DATABASE_HOST,
   database: process.env.TINY_USER_DB,
   password: process.env.TINY_USER_PASSWORD,
